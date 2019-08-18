@@ -15,7 +15,7 @@ res.send(`Hello there ! id is ${req.params.id}`);
 app.post('/course',(req,res)=>{
     const { error } = validatecourse(req.body);
     if(error){
-        res.status(400).send(error.details[0].message);
+        return res.status(400).send(error.details[0].message);
     }
     const course = {
         id : courses.length + 1,
@@ -45,7 +45,7 @@ app.put('/course/:id',(req,res)=>{
 app.delete('/course/del/:id',(req,res) => {
     const course = courses.find( c => c.id===parseInt(req.params.id));
     if(!course){
-        res.status(404).send('course not found');
+        return res.status(404).send('course not found');
     }
     const i = courses.indexOf(course);
     courses.splice(i,1);
